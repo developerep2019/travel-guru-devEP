@@ -1,0 +1,20 @@
+.header-logo {
+  width: 100px;  
+}
+
+a {
+  color : white !important;
+}
+a:hover{
+  color : #FFC107 !important;
+  text-decoration: none !important;
+  transition: color 0.25s;
+}
+.text-white {
+    font-weight: bold;
+    margin-left: 85px;
+}
+
+.search-field {
+    background : none !important;
+}

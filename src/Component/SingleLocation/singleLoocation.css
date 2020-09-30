@@ -1,0 +1,23 @@
+.locationDiv {
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+    margin: auto;
+    width: 300px;
+    margin-right: 50px;
+    border-radius: 10px;
+    margin-left: 80px;
+    padding-top: 315px;
+}
+
+.locationDiv:hover {
+    border: 5px solid #ffc107;
+    transform: scale(0.9);
+    transition: transform 0.5s;
+    transition: border  0.2s;
+}
+.locationContainer {
+    margin: auto;
+}

@@ -11,13 +11,14 @@ import HomeDisplay from '../HomeDisplay/HomeDisplay';
 import NotFound from '../NotFound/NotFound';
 import Booking from '../Booking/Booking';
 import Hotels from '../Hotels/Hotels';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 export const UserContext = createContext();
-const Home = () => {
 
-const [loggedInUser, setLoggedInUser] = useState();
+const Home = () => {
+    const [user, setUser] = useState({});
     return (
-        <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+        <UserContext.Provider value={[user, setUser]}>
             <Router>
                 <Header />
                 <Switch>
@@ -42,9 +43,9 @@ const [loggedInUser, setLoggedInUser] = useState();
                     <Route path='/blog'>
                         <Blog />
                     </Route>
-                    <Route path="/hotels">
+                    <PrivateRoute path="/hotels">
                         <Hotels />
-                    </Route>
+                    </PrivateRoute>
                     <Route path="/tour/:dynamicLocation">
                         <Booking />
                     </Route>

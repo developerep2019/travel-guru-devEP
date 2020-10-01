@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as firebase from "firebase/app";
 import './login.css'
 import "firebase/auth";
@@ -6,6 +6,8 @@ import "firebase/firestore";
 import firebaseConfig from '../../firebaseConfig';
 import googleImg from '../../Image/Icon/google.png';
 import fbImg from '../../Image/Icon/fb.png';
+import { UserContext } from '../Home/Home';
+import { useHistory, useLocation } from 'react-router-dom';
 
 firebase.initializeApp(firebaseConfig)
 
@@ -34,6 +36,10 @@ const Login = () => {
         email: '',
         password: '',
     })
+    const [user, setUser] = useContext(UserContext);
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
     const [errMsg, setErrMsg] = useState('');
     const [newUser, setNewUser] = useState(false);
     const handleBlur = (e) => {
@@ -48,6 +54,7 @@ const Login = () => {
             const newUserInfo = { ...loggedInUser };
             newUserInfo[e.target.name] = e.target.value;
             setLoggedInUser(newUserInfo)
+            setUser(newUserInfo)
         }
     }
     const handleSubmit = (e) => {
@@ -64,13 +71,17 @@ const Login = () => {
         }
         if (!newUser && email && password) {
             firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(res => {
-                console.log(res.user)
-            })
-            .catch(error => {
-                var errorMessage = error.message;
-                setErrMsg(errorMessage);
-              });
+                .then(res => {
+                    const newUserInfo = { ...loggedInUser };
+                    newUserInfo[e.target.name] = e.target.value;
+                    setLoggedInUser(newUserInfo)
+                    setUser(newUserInfo)
+                    history.replace(from)
+                })
+                .catch(error => {
+                    var errorMessage = error.message;
+                    setErrMsg(errorMessage);
+                });
         }
 
         e.preventDefault();
